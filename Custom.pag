@@ -1,0 +1,134 @@
+VERSION 5.00
+Begin VB.PropertyPage pagCustom 
+   Caption         =   "Custom Settings"
+   ClientHeight    =   3495
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   5910
+   PaletteMode     =   0  'Halftone
+   ScaleHeight     =   3495
+   ScaleWidth      =   5910
+   Begin VB.TextBox txtCaption 
+      Height          =   330
+      Left            =   90
+      TabIndex        =   8
+      Top             =   2970
+      Width           =   5685
+   End
+   Begin VB.TextBox txtMin 
+      Height          =   330
+      Left            =   90
+      TabIndex        =   6
+      Top             =   1725
+      Width           =   2700
+   End
+   Begin VB.TextBox txtValue 
+      Height          =   330
+      Left            =   90
+      TabIndex        =   4
+      Top             =   1065
+      Width           =   2700
+   End
+   Begin VB.TextBox txtMax 
+      Height          =   330
+      Left            =   90
+      TabIndex        =   2
+      Top             =   420
+      Width           =   2700
+   End
+   Begin VB.CheckBox chkPercentCaption 
+      Caption         =   "PercentCaption"
+      Height          =   285
+      Left            =   120
+      TabIndex        =   0
+      Top             =   2400
+      Width           =   2700
+   End
+   Begin VB.Label lblCaption 
+      Caption         =   "Caption:"
+      Height          =   240
+      Left            =   90
+      TabIndex        =   7
+      Top             =   2720
+      Width           =   2700
+   End
+   Begin VB.Label lblMin 
+      Caption         =   "Min:"
+      Height          =   240
+      Left            =   90
+      TabIndex        =   5
+      Top             =   1470
+      Width           =   2700
+   End
+   Begin VB.Label lblValue 
+      Caption         =   "Value:"
+      Height          =   240
+      Left            =   90
+      TabIndex        =   3
+      Top             =   825
+      Width           =   2700
+   End
+   Begin VB.Label lblMax 
+      Caption         =   "Max:"
+      Height          =   240
+      Left            =   90
+      TabIndex        =   1
+      Top             =   165
+      Width           =   2700
+   End
+End
+Attribute VB_Name = "pagCustom"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Option Explicit
+
+Private Sub txtCaption_Change()
+    Changed = True
+End Sub
+
+Private Sub txtMin_Change()
+    Changed = True
+End Sub
+
+Private Sub txtValue_Change()
+    Changed = True
+End Sub
+
+Private Sub txtMax_Change()
+    Changed = True
+End Sub
+
+Private Sub chkPercentCaption_Click()
+    Changed = True
+End Sub
+
+Private Sub PropertyPage_ApplyChanges()
+    'update all the selected controls
+    
+    Dim ctlMe As ctlProgBar
+    
+'    ctlMe.Caption = txtCaption.Text
+'    ctlMe.Min = txtMin.Text
+'    ctlMe.Value = txtValue.Text
+'    ctlMe.Max = txtMax.Text
+'    ctlMe.PercentCaption = (chkPercentCaption.Value = vbChecked)
+    For Each ctlMe In SelectedControls
+        ctlMe.Caption = txtCaption.Text
+        ctlMe.Min = txtMin.Text
+        ctlMe.Value = txtValue.Text
+        ctlMe.Max = txtMax.Text
+        ctlMe.PercentCaption = (chkPercentCaption.Value = vbChecked)
+    Next ctlMe
+End Sub
+
+Private Sub PropertyPage_SelectionChanged()
+    txtCaption.Text = SelectedControls(0).Caption
+    txtMin.Text = SelectedControls(0).Min
+    txtValue.Text = SelectedControls(0).Value
+    txtMax.Text = SelectedControls(0).Max
+    chkPercentCaption.Value = (SelectedControls(0).PercentCaption And vbChecked)
+End Sub
+
+
